@@ -17,12 +17,15 @@ ol, ul {
   margin-bottom: 10px;
 }
 
-.square {
-  background: #fff;
-  border: 1px solid #999;
+.board {
+  background: #eee;
+  height: 150px;
+  width: 150px;
+}
+
+.square, .square-board {
   float: left;
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 16px;
   line-height: 34px;
   height: 34px;
   margin-right: -1px;
@@ -30,6 +33,17 @@ ol, ul {
   padding: 0;
   text-align: center;
   width: 34px;
+}
+
+.active-step {
+  font-weight: bold;
+}
+
+.square-board {
+  border: 1px solid #000;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: -1px;
 }
 
 .square:focus {
