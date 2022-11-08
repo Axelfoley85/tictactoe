@@ -12,6 +12,7 @@ class Game extends React.Component {
       }],
       xIsNext: true,
       stepNumber: 0,
+      reverseList: true
     }
   }
 
@@ -48,27 +49,6 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber]
     const winner = calculateWinner(current.squares)
 
-    const moves = history.map((step, move) => {
-      const description = move ?
-        'Go to move #' + move + ' (' + 
-        column[history[move].col-1] + 
-        history[move].row + ')' :
-        'Go to game start'
-      
-      const buttonClass = this.state.stepNumber === move ? "active-step" : null
-      
-      return (
-        <li key={move}>
-          <button 
-            className={buttonClass}
-            onClick={() => this.jumpTo(move)}
-          >
-            {description}
-          </button>
-        </li>
-      )
-    })
-
     let status
     if (winner) {
       status = 'Game Over, winner is ' + winner
@@ -86,10 +66,48 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          {
+            this.state.reverseList ?
+              <ol reversed>{this.movesList(history, column)}</ol> :
+              <ol>{this.movesList(history, column)}</ol>
+          }
         </div>
       </div>
     );
+  }
+
+  movesList(history, column) {
+    const length = history.length
+    const start = this.state.reverseList ? length - 1 : 0
+    let list = []
+    const reverseList = this.state.reverseList
+
+    for (
+      let move = start;
+      move < length && move >= 0;
+      reverseList ? move-- : move++
+    ) {
+      const description = move ?
+        'Go to move #' + move + ' (' +
+        column[history[move].col - 1] +
+        history[move].row + ')' :
+        'Go to game start';
+
+      const buttonClass = this.state.stepNumber === move ? "active-step" : null;
+
+      list.push(
+        <li key={move}>
+          <button
+            className={buttonClass}
+            onClick={() => this.jumpTo(move)}
+          >
+            {description}
+          </button>
+        </li>
+      );
+    }
+
+    return list
   }
 }
 
