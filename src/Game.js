@@ -12,7 +12,8 @@ class Game extends React.Component {
       }],
       xIsNext: true,
       stepNumber: 0,
-      reverseList: false
+      reverseList: false,
+      gameOver: false
     }
   }
 
@@ -47,18 +48,24 @@ class Game extends React.Component {
       reverseList: !this.state.reverseList
     })
   }
+
+  isWinnerSquare(i, winner) {
+    return winner ? 
+      winner.includes(i) ?
+        "square-winner" : "square-board" :
+      "square-board"
+  }
   
   render() {
     const column = ['a', 'b', 'c']
 
     const history = this.state.history
     const current = history[this.state.stepNumber]
-    // const [winner, winnerRow] = calculateWinner(current.squares)
     const winner = calculateWinner(current.squares)
-
+    
     let status
     if (winner) {
-      status = 'Game Over, winner is ' + winner
+      status = 'Game Over, winner is ' + winner.player + ' ' + winner.line
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
@@ -67,7 +74,7 @@ class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board
-            // winnerRow={winnerRow}
+            className={(i) => this.isWinnerSquare(i, winner)}
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
           />
@@ -140,7 +147,10 @@ function calculateWinner(squares) {
       squares[a] === squares[b] &&
       squares[a] === squares[c]
     ) {
-      return squares[a]
+      return {
+        player: squares[a],
+        line: [a, b, c]
+      }
     }
   }
   return null

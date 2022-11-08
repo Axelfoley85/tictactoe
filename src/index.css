@@ -35,6 +35,19 @@ ol, ul {
   width: 34px;
 }
 
+.square-winner {
+  color: rgb(192, 0, 0);
+  float: left;
+  font-size: 16px;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
 .active-step {
   font-weight: bold;
 }
