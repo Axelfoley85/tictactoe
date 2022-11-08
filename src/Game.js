@@ -12,7 +12,7 @@ class Game extends React.Component {
       }],
       xIsNext: true,
       stepNumber: 0,
-      reverseList: true
+      reverseList: false
     }
   }
 
@@ -41,12 +41,19 @@ class Game extends React.Component {
       xIsNext: (move % 2) === 0,
     })
   }
+
+  reverseListOrder() {
+    this.setState({
+      reverseList: !this.state.reverseList
+    })
+  }
   
   render() {
     const column = ['a', 'b', 'c']
 
     const history = this.state.history
     const current = history[this.state.stepNumber]
+    // const [winner, winnerRow] = calculateWinner(current.squares)
     const winner = calculateWinner(current.squares)
 
     let status
@@ -60,12 +67,16 @@ class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board
+            // winnerRow={winnerRow}
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
           />
         </div>
         <div className="game-info">
           <div>{status}</div>
+          <div>
+            <button onClick={()=>this.reverseListOrder()}>Reverse list order</button>
+          </div>
           {
             this.state.reverseList ?
               <ol reversed>{this.movesList(history, column)}</ol> :
@@ -93,12 +104,12 @@ class Game extends React.Component {
         history[move].row + ')' :
         'Go to game start';
 
-      const buttonClass = this.state.stepNumber === move ? "active-step" : null;
+      const historyItemClass = this.state.stepNumber === move ? "active-step" : null;
 
       list.push(
         <li key={move}>
           <button
-            className={buttonClass}
+            className={historyItemClass}
             onClick={() => this.jumpTo(move)}
           >
             {description}
