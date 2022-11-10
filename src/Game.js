@@ -13,7 +13,7 @@ class Game extends React.Component {
       xIsNext: true,
       stepNumber: 0,
       reverseList: false,
-      gameOver: false
+      gameOver: false,
     }
   }
 
@@ -49,11 +49,13 @@ class Game extends React.Component {
     })
   }
 
-  isWinnerSquare(i, winner) {
-    return winner ? 
-      winner.includes(i) ?
-        "square-winner" : "square-board" :
-      "square-board"
+  getSquareClassName(i, line) {
+    const squareClass = line ?
+      (
+        line.includes(i) ? "square-board winner" : "square-board"
+      ) :
+      "square-board";
+    return squareClass
   }
   
   render() {
@@ -61,7 +63,11 @@ class Game extends React.Component {
 
     const history = this.state.history
     const current = history[this.state.stepNumber]
-    const winner = calculateWinner(current.squares)
+    const winner = this.calculateWinner(current.squares)
+    const line = winner ? winner.line : null
+    const squareClassNames = [...Array(9).keys()].map((i) => {
+      return this.getSquareClassName(i, line)
+    })
     
     let status
     if (winner) {
@@ -74,24 +80,30 @@ class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board
-            className={(i) => this.isWinnerSquare(i, winner)}
+            squareClassNames={squareClassNames}
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
           />
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <div>
-            <button onClick={()=>this.reverseListOrder()}>Reverse list order</button>
-          </div>
-          {
-            this.state.reverseList ?
-              <ol reversed>{this.movesList(history, column)}</ol> :
-              <ol>{this.movesList(history, column)}</ol>
-          }
+          {this.historyElement(history, column)}
         </div>
       </div>
     );
+  }
+
+  historyElement(history, column) {
+    return (
+      <div>
+        <button onClick={()=>this.reverseListOrder()}>Reverse list order</button>
+      {
+        this.state.reverseList ?
+        <ol reversed>{this.movesList(history, column)}</ol> :
+        <ol>{this.movesList(history, column)}</ol>
+      }
+      </div>
+    )
   }
 
   movesList(history, column) {
