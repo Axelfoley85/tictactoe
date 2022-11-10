@@ -49,10 +49,10 @@ class Game extends React.Component {
     })
   }
 
-  getSquareClassName(i, line) {
-    const squareClass = line ?
+  getSquareClassName(i, winner) {
+    const squareClass = winner ?
       (
-        line.includes(i) ? "square-board winner" : "square-board"
+        winner.line.includes(i) ? "square-board winner" : "square-board"
       ) :
       "square-board";
     return squareClass
@@ -63,10 +63,9 @@ class Game extends React.Component {
 
     const history = this.state.history
     const current = history[this.state.stepNumber]
-    const winner = this.calculateWinner(current.squares)
-    const line = winner ? winner.line : null
+    const winner = calculateWinner(current.squares)
     const squareClassNames = [...Array(9).keys()].map((i) => {
-      return this.getSquareClassName(i, line)
+      return this.getSquareClassName(i, winner)
     })
     
     let status
