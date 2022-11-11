@@ -70,7 +70,7 @@ class Game extends React.Component {
     
     let status
     if (winner) {
-      status = 'Game Over, winner is ' + winner.player + ' ' + winner.line
+      status = 'Game Over, winner is ' + winner.player
     } else if (this.state.stepNumber === 9) {
       status = 'Game Over, draw!'
     } else {
@@ -154,7 +154,7 @@ function calculateWinner(squares) {
     [2, 4, 6],
   ]
   for (let i = 0; i < lines.length; i++) {
-    const [a, b , c] = lines[i];
+    const [a, b, c] = lines[i];
     if (
       squares[a] && 
       squares[a] === squares[b] &&
