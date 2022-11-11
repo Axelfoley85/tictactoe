@@ -1,69 +1,104 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
+  margin: 40px;
 }
 
 ol, ul {
-  padding-left: 30px;
+  padding-left: 10px;
 }
 
-.board-row:after {
+.board-row:after, .column-title-row:after {
   clear: both;
   content: "";
   display: table;
 }
 
 .status {
-  margin-bottom: 10px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 16px;
+  margin-left: 20px;
+}
+
+.game-info {
+  margin-top: 70px;
+  margin-left: 50px;
 }
 
 .board {
-  background: #eee;
-  height: 150px;
-  width: 150px;
+  margin-top: 0px;
+  margin-left: 20px;
+  height: 240px;
+  width: 230px;
+  box-shadow: 0px 0px 10px #bbb;
 }
 
-.square, .square-board {
+.square, .square-board, .column-title-field, .row-title-field {
   float: left;
   font-size: 16px;
   line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
+  height: 50px;
+  width: 50px;
+  margin-right: 15px;
+  margin-bottom: 15px;
   padding: 0;
   text-align: center;
-  width: 34px;
-  color: rgb(0, 0, 192);
+}
+
+.square-board {
+  background: #78e058;
+  font-size: 38px;
+  font-weight: bold;
+  border-radius: 20%;
 }
 
 .winner {
-  color: rgb(192, 0, 0);
+  color: #a70b00;
 }
 
 .active-step {
   font-weight: bold;
 }
 
-.square-board {
-  border: 1px solid #000;
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: -1px;
+button {
+  background: #e7e7e7;
+  box-shadow: 0px 0px 2px #bbb;
+  border: 0px;
+  margin-top: 4px;
+  border-radius: 5px;
+  padding: 5px;
 }
 
-.square:focus {
-  outline: none;
+.column-title-row {
+  margin-left: 30px;
+  height: 30px;
+  margin-bottom: 0px;
 }
 
-.kbd-navigation .square:focus {
-  background: #ddd;
+.column-title-field {
+  margin-top: 0px;
+  height: 30px;
+  margin-bottom: 0px;
+}
+
+.row-title-field {
+  width: 20px;
+  margin-right: 10px;
+  line-height: 54px;
+  text-align: right;
+}
+
+button:hover {
+  box-shadow: 0px 0px 8px #555;
+}
+
+.reverse-button {
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
 .game {
   display: flex;
   flex-direction: row;
-}
-
-.game-info {
-  margin-left: 20px;
 }

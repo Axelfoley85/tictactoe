@@ -12,7 +12,7 @@ class Game extends React.Component {
       }],
       xIsNext: true,
       stepNumber: 0,
-      reverseList: false,
+      reverseList: true,
       gameOver: false,
     }
   }
@@ -80,6 +80,7 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-board">
+          <div className="status">{status}</div>
           <Board
             squareClassNames={squareClassNames}
             squares={current.squares}
@@ -87,7 +88,6 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
           {this.historyElement(history, column)}
         </div>
       </div>
@@ -97,12 +97,11 @@ class Game extends React.Component {
   historyElement(history, column) {
     return (
       <div>
-        <button onClick={()=>this.reverseListOrder()}>Reverse list order</button>
-      {
-        this.state.reverseList ?
-        <ol reversed>{this.movesList(history, column)}</ol> :
-        <ol>{this.movesList(history, column)}</ol>
-      }
+        <button 
+          className="reverse-button" 
+          onClick={()=>this.reverseListOrder()}
+        >Reverse list order</button>
+      {<li>{this.movesList(history, column)}</li>}
       </div>
     )
   }

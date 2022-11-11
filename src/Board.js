@@ -21,7 +21,7 @@ class Board extends React.Component {
 
       return (
         <div className="board-row" key={i}>
-          <div className="square">{i+1}</div>
+          <div className="row-title-field">{i+1}</div>
           {elements}
         </div>
       )
@@ -29,11 +29,10 @@ class Board extends React.Component {
 
     return (
       <div className="board">
-        <div className="board-row">
-          <div className="square"></div>
-          <div className="square">a</div>
-          <div className="square">b</div>
-          <div className="square">c</div>
+        <div className="column-title-row">
+          <div className="column-title-field">a</div>
+          <div className="column-title-field">b</div>
+          <div className="column-title-field">c</div>
         </div>
         {rows}
       </div>
